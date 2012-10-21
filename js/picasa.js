@@ -88,7 +88,6 @@ $(function() {
             }
           };
           
-        
           markers.addLayer(m);
         
           // add to carousel
@@ -106,57 +105,22 @@ $(function() {
 
   });
 
+  // Add the images to the slider
   function _fillElastislide(m) {    
     var img_url = '<img src="' + m.images.thumbnail_small.url + '" data-large="' + m.images.image.url + '"/>';
     var html = "<li><a href='#'>" + img_url + "</a></li>";
     var $new = $(html);
     Gallery.addItems($new);   
   }
-
-  // // Add images to the slider
-  // function _bindElastislide(rebind) {
-  //   console.log("bind elasti");
-  // 
-  //   if (rebind === true) {
-  //     $('#carousel').elastislide('destroy');
-  //   }
-  // 
-  //   $('#carousel').elastislide({
-  //     imageW   : 180,
-  //    minItems  : 5,
-  //     onClick: function( $item ) {
-  //       $('#map').hide();
-  //       $('#full_image').empty().append("<img src='" + $item.attr("img_full") + "'/>").show().click(function () {
-  //         $(this).hide();
-  //         $('#map').show();
-  //      });
-  // 
-  //      // Which cluster am I in??
-  //       // console.log($item);
-  // 
-  // 
-  //        // new L.Icon.Default()
-  //       // _showFullImage($item);
-  //       // console.log(markers_raw[1]);
-  //       // markers_raw[1].openPopup();
-  //     }
-  //   });
-  // }
   
-  
-  // On cluster hover change pics below?
+  // On cluster hover put the pics of the cluster in the slider
 	markers.on('clusterclick', function (a) {
-    // $('.carousel-list').empty();
-    // $('.es-nav').remove();
-    
     Gallery.removeItems();
     
-    
+    // Put all the images from the cluster in the slider
     $.each(a.layer.getAllChildMarkers(), function (i, m) {
       _fillElastislide(m.picasa);
     });
-    
-    
     
     Gallery.reload();
 	});

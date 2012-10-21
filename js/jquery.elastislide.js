@@ -417,6 +417,77 @@
 			if ( callback ) callback.call();
 			
 		},
+		
+		// Extensions for a more dynamic Elastislide
+		
+		resizeSlider: function(slideToCurrent){
+  	  //alert("resizing slider");
+  	  var instance = this;
+  	  // set values again
+      instance._setCurrentValues();
+      // need to resize items
+      if( instance.visibleWidth < instance.options.minItems * ( instance.options.imageW + 2 * instance.options.border ) + ( instance.options.minItems - 1 ) * instance.options.margin ) {
+        instance._setDim( ( instance.visibleWidth - ( instance.options.minItems - 1 ) * instance.options.margin ) / instance.options.minItems );
+        instance._setCurrentValues();
+        instance.fitCount	= instance.options.minItems;
+      }	
+      else{
+        instance._setDim();
+        instance._setCurrentValues();
+      }
+      instance.$slider.css({
+        width	: instance.sliderW + 10 // TODO: +10px seems to solve a firefox "bug" :S
+      });
+      
+      
+      // slide to the current element
+      clearTimeout( instance.resetTimeout );
+      if(slideToCurrent){
+        instance.setCurrent(0);
+        
+        
+        // instance.resetTimeout  = setTimeout(function() {
+        //   instance._slideToCurrent();
+        // }, 200);
+      }
+      
+      
+      // // slide to the current element
+      // clearTimeout( instance.resetTimeout );
+      // if(slideToCurrent){
+      //   instance.resetTimeout  = setTimeout(function() {
+      //     instance._slideToCurrent();
+      //   }, 200);
+      // }
+  	},
+  	
+		
+		refreshSlider: function(){
+      this.itemsCount = this.$items.length;
+      this._setDim();
+      this._setCurrentValues();
+      this.$slider.css({
+        width : this.sliderW
+      });
+      //this._slideToCurrent();
+    },
+    
+    add : function( $newelems, callback ) {
+      // adds new items to the carousel
+      this.$items = this.$items.add( $newelems );
+      this.refreshSlider();
+      if ( callback ) callback.call( $newelems );
+  	},
+
+    remove : function( idx, callback ) {
+      // adds new items to the carousel
+      this.$items.splice(idx, 1);
+      //this.refreshSlider();
+      this.resizeSlider();
+      if ( callback ) callback.call( );
+    },
+		
+		
 		destroy				: function( callback ) {
 			
 			this._destroy( callback );

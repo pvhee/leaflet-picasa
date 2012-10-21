@@ -29,6 +29,7 @@ $(function() {
 		  }
 	  }
 
+    console.log(len);
 	  if ( !len ) {
 		  triggerCallback();
 	  }
@@ -66,18 +67,20 @@ $(function() {
 			
 			init			= function() {
 				
-				// (not necessary) preloading the images here...
-				$items.add('<img src="images/ajax-loader.gif"/><img src="images/black.png"/>').imagesLoaded( function() {
-					// add options
-					_addViewModes();
-					
-					// add large image wrapper
-					_addImageWrapper();
-					
-					// show first image
-					_showImage( $items.eq( current ) );
-						
-				});
+        // // (not necessary) preloading the images here...
+        // $items.add('<img src="images/ajax-loader.gif"/><img src="images/black.png"/>').imagesLoaded( function() {
+        //  // add options
+        //           // _addViewModes();
+        //  
+        //  // add large image wrapper
+        //           _addImageWrapper();
+        //  
+        //  // show first image
+        //           // _showImage( $items.eq( current ) );
+        //    
+        // });
+				
+				_addImageWrapper();
 				
 				// initialize the carousel
 				if( mode === 'carousel' )
@@ -97,7 +100,7 @@ $(function() {
 						// on click show image
 						_showImage($item);
 						// change current
-						current	= $item.index();
+						current	= $item.index();						
 					}
 				});
 				
@@ -137,6 +140,7 @@ $(function() {
 					$viewfull.trigger('click');
 					
 			},
+			
 			_addImageWrapper= function() {
 				
 				// adds the structure for the large image and the navigation buttons (if total items > 1)
@@ -241,25 +245,31 @@ $(function() {
 			
 			removeItems = function() {
         $esCarousel.find('ul').empty();
-        $items = $esCarousel.find('ul > li');
-        itemsCount = $items.length;
-			  $esCarousel.elastislide('reload');
-			  
-        // $('.es-nav').remove();
+        
+                $items = $esCarousel.find('ul > li');
+                itemsCount = $items.length;
+                // $esCarousel.elastislide('reload');
+        // $esCarousel.elastislide('resizeSlider', true);      
 			},
 			
 			
 			reload = function() {
-			  console.log(itemsCount);
+        // console.log(itemsCount);
         // $esCarousel.elastislide('reload');
+        
+        //         $items = $esCarousel.find('ul > li');
+        //         itemsCount = $items.length;
+        //         // $esCarousel.elastislide('reload');
+        $esCarousel.elastislide('resizeSlider', true);
+        
 			}
 			
+			// Add a new item to the slider
 			addItems		= function( $new ) {
 			
 				$esCarousel.find('ul').append($new);
 				$items 		= $items.add( $($new) );
 				itemsCount	= $items.length;
-        // console.log(itemsCount);
 				$esCarousel.elastislide( 'add', $new );
 			
 			};
