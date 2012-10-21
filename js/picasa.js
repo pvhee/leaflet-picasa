@@ -14,14 +14,14 @@ $(function() {
   }
 
 
-  $("#remove-items").click(function() {
-    Gallery.removeItems();
-  
-    // var $new  = $('<li><a href="#"><img src="images/thumbs/7.jpg" data-large="images/7.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>');
-    // Gallery.addItems( $new );
-  
-  
-  });
+  // $("#remove-items").click(function() {
+  //   Gallery.removeItems();
+  // 
+  //   // var $new  = $('<li><a href="#"><img src="images/thumbs/7.jpg" data-large="images/7.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>');
+  //   // Gallery.addItems( $new );
+  // 
+  // 
+  // });
 
 
 
@@ -91,8 +91,12 @@ $(function() {
           markers.addLayer(m);
         
           // add to carousel
+          
+          // @todo: we should just be adding everything to the html - once that's done we fire up elastislide, not before
+          
+          
           _fillElastislide(m.picasa);
-        
+          // console.log('filling elastislide');
         
         }
       });

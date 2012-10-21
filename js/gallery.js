@@ -80,11 +80,11 @@ $(function() {
         //    
         // });
 				
-				_addImageWrapper();
+        // _addImageWrapper();
 				
 				// initialize the carousel
-				if( mode === 'carousel' )
-					_initCarousel();
+        // if( mode === 'carousel' )
+				_initCarousel();
 				
 			},
 			
@@ -146,8 +146,12 @@ $(function() {
 				// adds the structure for the large image and the navigation buttons (if total items > 1)
 				// also initializes the navigation events
 				
-				$('#img-wrapper-tmpl').tmpl( {itemsCount : itemsCount} ).appendTo( $rgGallery );
 				
+				
+        $('#img-wrapper-tmpl').tmpl( {itemsCount : itemsCount} ).appendTo( $rgGallery );
+				
+				
+				// We need to have this rewritten everytime, so we can add prev/next links on the loaded images
 				if( itemsCount > 1 ) {
 					// addNavigation
 					var $navPrev		= $rgGallery.find('a.rg-image-nav-prev'),
@@ -210,8 +214,21 @@ $(function() {
 			},
 			_showImage		= function( $item ) {
 				
-				// shows the large image that is associated to the $item
+				// show the wrapper on click - hide the map now
+				var $map = $rgGallery.find('div#leaflet-map').hide();
+				var $wrapper = $rgGallery.find('div.rg-image-wrapper').show();
 				
+				// when the close handle is clicked we'll hide the wrapper and show the map again.
+				$rgGallery.find('div.rg-close').click(function() {				  
+				  $wrapper.hide();
+				  $map.show();
+				  
+				  // Make sure we clean up stuff first before closing the map
+				  $rgGallery.find('div.rg-image').empty();
+				  $items.removeClass('selected');
+				});
+				
+				// shows the large image that is associated to the $item
 				var $loader	= $rgGallery.find('div.rg-loading').show();
 				
 				$items.removeClass('selected');
@@ -230,10 +247,10 @@ $(function() {
 					
 					$loader.hide();
 					
-					if( mode === 'carousel' ) {
+          // if( mode === 'carousel' ) {
 						$esCarousel.elastislide( 'reload' );
 						$esCarousel.elastislide( 'setCurrent', current );
-					}
+          // }
 					
 					anim	= false;
 					
@@ -283,7 +300,9 @@ $(function() {
 	
 	})();
 
-	Gallery.init();
+  // No need to init the gallery here
+  // console.log('initing the gallery');
+  Gallery.init();
 	
 	/*
 	Example to add more items to the gallery:
