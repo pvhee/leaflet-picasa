@@ -13,38 +13,38 @@ $(function() {
 	// contributors: Oren Solomianik, David DeSandro, Yiannis Chatzikonstantinou
 
 	$.fn.imagesLoaded 		= function( callback ) {
-	var $images = this.find('img'),
-		len 	= $images.length,
-		_this 	= this,
-		blank 	= 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+	  var $images = this.find('img'),
+		  len 	= $images.length,
+		  _this 	= this,
+		  blank 	= 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
-	function triggerCallback() {
-		callback.call( _this, $images );
-	}
+	  function triggerCallback() {
+		  callback.call( _this, $images );
+	  }
 
-	function imgLoaded() {
-		if ( --len <= 0 && this.src !== blank ){
-			setTimeout( triggerCallback );
-			$images.off( 'load error', imgLoaded );
-		}
-	}
+	  function imgLoaded() {
+		  if ( --len <= 0 && this.src !== blank ){
+			  setTimeout( triggerCallback );
+			  $images.off( 'load error', imgLoaded );
+		  }
+	  }
 
-	if ( !len ) {
-		triggerCallback();
-	}
+	  if ( !len ) {
+		  triggerCallback();
+	  }
 
-	$images.on( 'load error',  imgLoaded ).each( function() {
-		// cached images don't fire load sometimes, so we reset src.
-		if (this.complete || this.complete === undefined){
-			var src = this.src;
-			// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
-			// data uri bypasses webkit log warning (thx doug jones)
-			this.src = blank;
-			this.src = src;
-		}
-	});
+  	$images.on( 'load error',  imgLoaded ).each( function() {
+  		// cached images don't fire load sometimes, so we reset src.
+  		if (this.complete || this.complete === undefined){
+  			var src = this.src;
+  			// webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+  			// data uri bypasses webkit log warning (thx doug jones)
+  			this.src = blank;
+  			this.src = src;
+  		}
+  	});
 
-	return this;
+	  return this;
 	};
 
 	// gallery container
@@ -63,6 +63,7 @@ $(function() {
 			mode 			= 'carousel',
 			// control if one image is being loaded
 			anim			= false,
+			
 			init			= function() {
 				
 				// (not necessary) preloading the images here...
@@ -83,6 +84,7 @@ $(function() {
 					_initCarousel();
 				
 			},
+			
 			_initCarousel	= function() {
 				
 				// we are using the elastislide plugin:
@@ -103,6 +105,7 @@ $(function() {
 				$esCarousel.elastislide( 'setCurrent', current );
 				
 			},
+			
 			_addViewModes	= function() {
 				
 				// top right buttons: hide / show carousel
@@ -240,43 +243,16 @@ $(function() {
         $esCarousel.find('ul').empty();
         $items = $esCarousel.find('ul > li');
         itemsCount = $items.length;
+			  $esCarousel.elastislide('reload');
 			  
-			  
-			  // destroy remote
-        // $esCarousel.elastislide('destroy');
-			  $esCarousel.elastislide('reload', function() {
-			    console.log("RELOADED");
-			  });
-			  
-			  // add new
-        // var $new  = $('<li><a href="#"><img src="images/thumbs/7.jpg" data-large="images/7.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>');
-        // addItems($new);
-			  
-        // $esCarousel.find('ul').empty();
-        // 
-        // 
-        // var $new  = $('<li><a href="#"><img src="images/thumbs/7.jpg" data-large="images/7.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>');
-        // 
-        // $items = $esCarousel.find('ul > li');
-        // itemsCount = $items.length;
-        // console.log(itemsCount);
-        // 
-        // 
-        // 
-        // 
-        // $esCarousel.elastislide( 'add', '' );
-			  
-			  
-        // $esCarousel.elastislide( 'add', $new );
-				
-			  
-			  
-        //        $items    = $items.add( $($new) );
-        //        itemsCount  = $items.length; 
-        // $esCarousel.elastislide( 'add', $new );
+        // $('.es-nav').remove();
 			},
 			
 			
+			reload = function() {
+			  console.log(itemsCount);
+        // $esCarousel.elastislide('reload');
+			}
 			
 			addItems		= function( $new ) {
 			
@@ -291,7 +267,8 @@ $(function() {
 		return { 
 			init 		: init,
 			addItems	: addItems,
-			removeItems : removeItems
+			removeItems : removeItems,
+			reload : reload
 		};
 	
 	})();
