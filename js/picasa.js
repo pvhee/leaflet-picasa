@@ -1,5 +1,6 @@
 $(function() {
 
+  // Overwrite default icon creation
   L.MarkerClusterGroup.prototype._defaultIconCreateFunction = function (childCount) {
   	var c = ' marker-cluster-';
   	if (childCount < 5) {
@@ -13,25 +14,14 @@ $(function() {
   	return new L.DivIcon({ html: '<div><span>' + childCount + '</span></div>', className: 'marker-cluster' + c, iconSize: new L.Point(40, 40) });
   }
 
-
-  // $("#remove-items").click(function() {
-  //   Gallery.removeItems();
-  // 
-  //   // var $new  = $('<li><a href="#"><img src="images/thumbs/7.jpg" data-large="images/7.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>');
-  //   // Gallery.addItems( $new );
-  // 
-  // 
-  // });
-
-
-
-
-
   var maxZoomPerClick = 4; 
 
-// $("#full_image").hide();
+  // Create a map
+  
 
-  var map = L.map('leaflet-map', {minZoom: 1, maxZoom: 17}).setView([51.505, -0.09], 4);
+  
+  // var map = L.map('leaflet', {minZoom: 1, maxZoom: 17, scrollWheelZoom: false,}).setView([51.505, -0.09], 1);
+  var map = L.map('leaflet', {minZoom: 1, maxZoom: 17, scrollWheelZoom: false,}).setView([31, 12], 1);
   var markers = new L.MarkerClusterGroup({
     spiderfyOnMaxZoom: false,
     showCoverageOnHover: false,
@@ -40,8 +30,8 @@ $(function() {
   });
   var bounds = [];
   var markers_raw = [];    
-    
-  L.tileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png32', {
+        
+  L.tileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-chester/{z}/{x}/{y}.png32', {
     // minZoom: 5,
     // maxZoom: 18,
     attribution: 'Map tiles by <a href="http://mapbox.com">Mapbox</a>'
@@ -51,15 +41,12 @@ $(function() {
   var json_Album_URI = "https://picasaweb.google.com/data/feed/base/"
               // + "user/"       +   "garsybuzz/"
               + "user/"       +   "109750673638535496225/"
-              + "albumid/"    +   "5716360188091683297" 
-              // + "albumid/"    +   "5716364246392855137" // Flower Tower
+              // + "albumid/"    +   "5716360188091683297" 
+              + "albumid/"    +   "5716364246392855137" // Flower Tower
               // + "albumid/"    +   "5550916844194049793" 
-
               + "?alt="       +   "json"
               + "&kind="      +   "photo";
             
-// var json_Album_URI = "http://local/picasa/picasa.json";
-
   $.getJSON(json_Album_URI,
     function(data){
     
@@ -93,20 +80,14 @@ $(function() {
           // add to carousel
           
           // @todo: we should just be adding everything to the html - once that's done we fire up elastislide, not before
+          // @todo: somw
           
-          
-          _fillElastislide(m.picasa);
-          // console.log('filling elastislide');
-        
+          _fillElastislide(m.picasa);        
         }
       });
     
       // Add markers to the map
       map.addLayer(markers);
-
-
-
-
   });
 
   // Add the images to the slider
@@ -118,7 +99,7 @@ $(function() {
   }
   
   // On cluster hover put the pics of the cluster in the slider
-	markers.on('clusterclick', function (a) {
+	markers.on('clustermouseover', function (a) {
     Gallery.removeItems();
     
     // Put all the images from the cluster in the slider
@@ -128,6 +109,16 @@ $(function() {
     
     Gallery.reload();
 	});
+	
+	// On cluster click we want to fill the slider with images from the cluster
+  markers.on('clusterclick', function (a) {
+    var currentZoom = map.getZoom(), toZoom = map.getBoundsZoom(a.layer._bounds), zoom = toZoom;
+    if (toZoom - currentZoom > maxZoomPerClick) {
+      zoom = currentZoom + maxZoomPerClick;
+    }
+    map.setView(L.latLngBounds(a.layer._bounds).getCenter(), zoom);
+	});
+	
 	
 	// On single point click, zoom in, but in batches
   markers.on('click', function(m) {

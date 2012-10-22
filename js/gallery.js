@@ -215,7 +215,7 @@ $(function() {
 			_showImage		= function( $item ) {
 				
 				// show the wrapper on click - hide the map now
-				var $map = $rgGallery.find('div#leaflet-map').hide();
+				var $map = $rgGallery.find('div.map').hide();
 				var $wrapper = $rgGallery.find('div.rg-image-wrapper').show();
 				
 				// when the close handle is clicked we'll hide the wrapper and show the map again.

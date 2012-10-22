@@ -1,4 +1,6 @@
-#leaflet-map {
+.map {
+  width: 500px; 
+  height: 350px;
   display:block;
   clear: both;
 }

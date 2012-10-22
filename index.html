@@ -18,6 +18,7 @@
   	<!--[if lte IE 8]><link rel="stylesheet" href="Leaflet/dist/leaflet.ie.css" /><![endif]-->
   	<link rel="stylesheet" href="Leaflet.markercluster/dist/MarkerCluster.css" />
   	<link rel="stylesheet" href="Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  	<link rel="stylesheet" href="Leaflet.zoomslider/src/L.Control.Zoomslider.css" />
 		
 		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' />
@@ -54,16 +55,14 @@
 			<div class="content">
 				<div id="rg-gallery" class="rg-gallery">
 				  
-				  <div id="leaflet-map" style="width: 500px; height: 400px;"></div>
+				  <div id="leaflet" class="map"></div>
 				  
 				  <div class="rg-image-wrapper" style="display: none">
 				    <div class="rg-close">BACK TO MAP</div>
             <div class="rg-image"></div>
             <div class="rg-loading"></div>
           </div>
-				  
-				  
-				  
+
 					<div class="rg-thumbs">
 						<!-- Elastislide Carousel Thumbnail Viewer -->
 						<div class="es-carousel-wrapper">
@@ -72,19 +71,13 @@
 								<span class="es-nav-next">Next</span>
 							</div>
 							<div class="es-carousel">
-								<ul class="carousel-list">								  
-                    <!-- <li><a href="#"><img src="images/thumbs/1.jpg" data-large="images/1.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li> -->
+								<ul class="carousel-list">
 								</ul>
-							</div>
-							
+							</div>		
 						</div>
 						<!-- End Elastislide Carousel Thumbnail Viewer -->
 					</div><!-- rg-thumbs -->
-				
- 
-    			
-    			
-    			
+
 				</div><!-- rg-gallery -->
 			</div><!-- content -->
 		</div><!-- container -->
@@ -95,6 +88,7 @@
 		<script type="text/javascript" src="js/gallery.js"></script>
 		<script src="Leaflet/dist/leaflet-src.js"></script>
   	<script src="Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+  	<script src="Leaflet.zoomslider/src/L.Control.Zoomslider.js" ></script>
 		<script type="text/javascript" src="js/picasa.js"></script>
     </body>
 </html>
