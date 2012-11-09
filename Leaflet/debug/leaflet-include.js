@@ -16,12 +16,15 @@
 
 		'dom/DomEvent.js',
 		'dom/DomEvent.DoubleTap.js',
+		'dom/DomEvent.MsTouch.js',
 		'dom/DomUtil.js',
 		'dom/Draggable.js',
 
-		'dom/transition/Transition.js',
-		'dom/transition/Transition.Native.js',
-		'dom/transition/Transition.Timer.js',
+		'dom/PosAnimation.js',
+		'dom/PosAnimation.Timer.js',
+		// 'dom/transition/Transition.js',
+		// 'dom/transition/Transition.Native.js',
+		// 'dom/transition/Transition.Timer.js',
 
 		'geo/LatLng.js',
 		'geo/LatLngBounds.js',
@@ -111,7 +114,7 @@
     for (var i = 0; i < scripts.length; i++) {
 		document.writeln("<script src='" + path + scripts[i] + "'></script>");
 	}
-    document.writeln('<script>L.Icon.Default.imagePath = "' + path + '../dist/images";</script>');
+    document.writeln('<script defer>L.Icon.Default.imagePath = "' + path + '../dist/images";</script>');
 })();
 
 function getRandomLatLng(map) {

@@ -99,24 +99,32 @@ $(function() {
   }
   
   // On cluster hover put the pics of the cluster in the slider
-	markers.on('clustermouseover', function (a) {
-    Gallery.removeItems();
-    
-    // Put all the images from the cluster in the slider
-    $.each(a.layer.getAllChildMarkers(), function (i, m) {
-      _fillElastislide(m.picasa);
-    });
-    
-    Gallery.reload();
-	});
+	// markers.on('clustermouseover', function (a) {
+	// 	Gallery.removeItems();
+	// 
+	// 	// Put all the images from the cluster in the slider
+	// 	$.each(a.layer.getAllChildMarkers(), function (i, m) {
+	// 		_fillElastislide(m.picasa);
+	// 	});
+	// 
+	// 	Gallery.reload();
+	// });
 	
-	// On cluster click we want to fill the slider with images from the cluster
+  // On cluster click we want to fill the slider with images from the cluster
   markers.on('clusterclick', function (a) {
     var currentZoom = map.getZoom(), toZoom = map.getBoundsZoom(a.layer._bounds), zoom = toZoom;
     if (toZoom - currentZoom > maxZoomPerClick) {
       zoom = currentZoom + maxZoomPerClick;
     }
     map.setView(L.latLngBounds(a.layer._bounds).getCenter(), zoom);
+
+
+		Gallery.removeItems();
+    // Put all the images from the cluster in the slider
+    $.each(a.layer.getAllChildMarkers(), function (i, m) {
+      _fillElastislide(m.picasa);
+    });
+    Gallery.reload();
 	});
 	
 	
