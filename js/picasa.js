@@ -47,17 +47,18 @@ $(function() {
               + "albumid/"    +   "5716364246392855137" // Flower Tower
               // + "albumid/"    +   "5550916844194049793" 
               + "?alt="       +   "json"
-              + "&kind="      +   "photo";
+              + "&kind="      +   "photo"
+							+ "&callback=?";
             
-  $.getJSON(json_Album_URI,
+  $.getJSON(json_Album_URI, 
     function(data){
 	
-			console.log("json start parsing");
+			// console.log("json start parsing");
     
       var nrGeo=0, total=0;
       $.each(data.feed.entry, function(i,item) {
 	
-				console.log("first entry parsing");
+				// console.log("first entry parsing");
         total++;
         // Only draw pictures with geo information attached
         if(item.hasOwnProperty("georss$where")) {
