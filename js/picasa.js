@@ -20,6 +20,7 @@ $(function() {
   
 
   
+	console.log("Creating map");
   // var map = L.map('leaflet', {minZoom: 1, maxZoom: 17, scrollWheelZoom: false,}).setView([51.505, -0.09], 1);
   var map = L.map('leaflet', {minZoom: 1, maxZoom: 17, scrollWheelZoom: false,}).setView([31, 12], 1);
   var markers = new L.MarkerClusterGroup({
@@ -29,7 +30,8 @@ $(function() {
     maxClusterRadius: 30
   });
   var bounds = [];
-  var markers_raw = [];    
+  var markers_raw = [];
+	console.log("map creating done");
         
   L.tileLayer('http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-chester/{z}/{x}/{y}.png32', {
     // minZoom: 5,
@@ -37,7 +39,7 @@ $(function() {
     attribution: 'Map tiles by <a href="http://mapbox.com">Mapbox</a>'
   }).addTo(map);
 
-
+	console.log("start json");
   var json_Album_URI = "https://picasaweb.google.com/data/feed/base/"
               // + "user/"       +   "garsybuzz/"
               + "user/"       +   "109750673638535496225/"
@@ -49,9 +51,13 @@ $(function() {
             
   $.getJSON(json_Album_URI,
     function(data){
+	
+			console.log("json start parsing");
     
       var nrGeo=0, total=0;
       $.each(data.feed.entry, function(i,item) {
+	
+				console.log("first entry parsing");
         total++;
         // Only draw pictures with geo information attached
         if(item.hasOwnProperty("georss$where")) {
